@@ -31,7 +31,7 @@ public class TestClass {
 		var browser = playwright.chromium().launch(new LaunchOptions().setHeadless(false));
 		//sets the context, a sub-browser like an in-private browsing session
 		var context = browser.newContext(new Browser.NewContextOptions()
-				  .setRecordVideoDir(Paths.get("videos/")));
+				  .setRecordVideoDir(Paths.get("videos/")).setRecordVideoSize(1920, 1080));
 		//the actual tab/page that will be used for browser actions
 		var page = context.newPage();
 
@@ -64,6 +64,9 @@ public class TestClass {
 		screenshot = page.screenshot(new Page.ScreenshotOptions().setFullPage(true));
 		ReportManagerHelper.attach("Screenshot", "playwright.png", new ByteArrayInputStream(screenshot));
 
+		//This is how you attach the video, and you have to close the context for the video to be prepared
+		//I recommend creating the playwright instance with the DriverManager init phase, and destroying it in the afterSuite listener.
+		//I recommend that close browser should close the context, while close all drivers should terminate the playwright instance.
 		var videoPath = page.video().path().toString();
 		context.close();
 		playwright.close();
