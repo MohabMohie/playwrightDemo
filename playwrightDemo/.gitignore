@@ -1,0 +1,7 @@
+/target/
+/allure-results/
+/extent-reports/
+/videos/
+/generate_allure_report.bat
+/.project
+/.settings
