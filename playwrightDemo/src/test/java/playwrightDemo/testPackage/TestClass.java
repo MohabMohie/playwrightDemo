@@ -71,7 +71,7 @@ public class TestClass {
 		context.close();
 		playwright.close();
 		try {
-			ReportManagerHelper.attach("Video Recording", "playwright.mp4", new FileInputStream(videoPath));
+			ReportManagerHelper.attach("Video Recording", ReportManagerHelper.getTestMethodName(), new FileInputStream(videoPath));
 		} catch (FileNotFoundException e) {
 			ReportManagerHelper.log(e);
 		}
